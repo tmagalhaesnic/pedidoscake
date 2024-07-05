@@ -17,9 +17,4 @@ echo $this->Form->select('Produtos', Hash::combine($produtos, '{n}.produtos.nome
 );
 echo $this->Form->input('Observações', array('rows' => '3'));
 echo $this->Form->end('Criar pedido');
-
-print_r($clientes);
-
-
-
-    ?>
+?>
