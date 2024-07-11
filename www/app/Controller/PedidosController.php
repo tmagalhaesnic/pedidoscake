@@ -46,7 +46,6 @@ class PedidosController extends AppController {
                 VALUES ('{$clienteId}', '{$observacoes}', '{$dataCriacao}', '{$dataModificacao}')
             ";
 
-            // Executar a query de inserção
             $insert = $this->Pedido->query($query);
 
 
