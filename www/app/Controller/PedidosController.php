@@ -33,17 +33,14 @@ class PedidosController extends AppController {
         if ($this->request->is('post')) {
             $data = $this->request->data;
 
-            // Obter o ID do cliente baseado no nome
             $clienteSelecionado = $data['Post']['Cliente'];
             $cliente = $this->Pedido->query("SELECT id FROM clientes WHERE nome = '{$clienteSelecionado}'");
             $clienteId = $cliente[0]['clientes']['id'];
 
-            // Preparar os dados para inserção
             $observacoes = $data['Post']['Observações'];
             $dataCriacao = date('Y-m-d H:i:s');
             $dataModificacao = date('Y-m-d H:i:s');
 
-            // Montar a query de inserção
             $query = "
                 INSERT INTO pedidos (cliente_id, observacao, created, modified)
                 VALUES ('{$clienteId}', '{$observacoes}', '{$dataCriacao}', '{$dataModificacao}')
