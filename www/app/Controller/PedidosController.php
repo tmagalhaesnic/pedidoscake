@@ -53,7 +53,7 @@ class PedidosController extends AppController {
             $insert = $this->Pedido->query($query);
 
 
-            $this->Session->setFlash('Pedido criado com sucesso!');
+            $this->Session->setFlash('Pedido criado com sucesso');
   
         }
     }
