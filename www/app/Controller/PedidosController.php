@@ -27,7 +27,35 @@ class PedidosController extends AppController {
 
     }
     public function add(){
-        $this->set("clientes", $this->Pedido->query("select nome from clientes"));
-        $this->set("produtos", $this->Pedido->query("select nome from produtos"));
+        $this->set("clientes", $this->Pedido->query("SELECT nome FROM clientes"));
+        $this->set("produtos", $this->Pedido->query("SELECT nome FROM produtos"));
+
+        if ($this->request->is('post')) {
+            $data = $this->request->data;
+
+            // Obter o ID do cliente baseado no nome
+            $clienteSelecionado = $data['Post']['Cliente'];
+            $cliente = $this->Pedido->query("SELECT id FROM clientes WHERE nome = '{$clienteSelecionado}'");
+            $clienteId = $cliente[0]['clientes']['id'];
+
+            // Preparar os dados para inserção
+            $observacoes = $data['Post']['Observações'];
+            $dataCriacao = date('Y-m-d H:i:s');
+            $dataModificacao = date('Y-m-d H:i:s');
+
+            // Montar a query de inserção
+            $query = "
+                INSERT INTO pedidos (cliente_id, observacao, created, modified)
+                VALUES ('{$clienteId}', '{$observacoes}', '{$dataCriacao}', '{$dataModificacao}')
+            ";
+
+            // Executar a query de inserção
+            $insert = $this->Pedido->query($query);
+
+
+            $this->Session->setFlash('Pedido criado com sucesso!');
+  
+        }
     }
+
 }
